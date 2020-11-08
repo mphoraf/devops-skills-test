@@ -70,6 +70,5 @@ lvcreate -y -L 30G -n docker-group/docker
     * And using git webhooks to auto build and test, perform git push to non master branch and only approve master merges when tests are done and
 	  authorised by some approvers.
 	* A simple pre-production tests can use also docker-compose to test the deployment workflow.
-	* Upon success a configuration management tool like: `Ansible` and `Puppet` can be used to deploy to production and applied to specifi
-	  hosts.
+	* Upon success a configuration management tool like: `Ansible` and `Puppet` can be used to deploy to production and applied to specific hosts.
 * Commit and push your changes.
