@@ -26,7 +26,7 @@ fi 2>/dev/null
 startContainer() {
   for FUNC in `echo stop rm`; do
     echo "$FUNC the container."
-    sh "docker container $FUNC  $(docker ps -a --filter name=ALFRED -q)"
+    docker container $FUNC $(docker ps -a --filter name=ALFRED -q)
   done 2>/dev/null
   echo "Restarting the container."
   docker build -t local/mymaria .
