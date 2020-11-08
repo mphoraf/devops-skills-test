@@ -1,5 +1,6 @@
 #!/bin/bash
 export DVERSION="19.03.13"
+PASSWORD=${1:-password}
 
 dockerInstall() {
   curl -sL "ttps://download.docker.com/linux/static/stable/$(uname -m)/docker-$DVERSION.tgz" -o /tmp/docker-$DVERSION.tgz
@@ -29,13 +30,15 @@ startContainer() {
   done 2>/dev/null
   echo "Restarting the container."
   docker build -t local/mymaria .
-  docker run -d --name ALFRED -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v /var/lib/mysql:/var/lib/mysql -v /BATCAVE:/BATCAVE local/mymaria
+  openssl enc -aes-256-cbc -d -a -iter 3 -in secret -out .unsecret -k ${PASSWORD}
+  docker run -d --name ALFRED --env-file=.unsecret -v /var/lib/mysql:/var/lib/mysql -v /BATCAVE:/BATCAVE local/mymaria
 }
 
 execCommands() {
-  docker exec ALFRED mysql -u root -e "create database wayneindustries;" 
-  docker exec ALFRED mysql -u root -D wayneindustries -e "create table fox (ID integer(5) primary key, NAME varchar(30));" 
-  docker exec ALFRED mysql -u root -D wayneindustries -e "INSERT INTO fox (ID, NAME) VALUES(50,'BATMOBILE');" 
+  source .unsecret
+  docker exec -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD ALFRED mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "create database wayneindustries;" 
+  docker exec -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD ALFRED mysql -u root -p${MYSQL_ROOT_PASSWORD} -D wayneindustries -e "create table fox (ID integer(5) primary key, NAME varchar(30));" 
+  docker exec -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD ALFRED mysql -u root -p${MYSQL_ROOT_PASSWORD} -D wayneindustries -e "INSERT INTO fox (ID, NAME) VALUES(50,'BATMOBILE');" 
 }
 
 isDocker
