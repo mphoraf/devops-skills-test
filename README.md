@@ -22,6 +22,12 @@ nameserver 1.1.1.1
 ```
 
 * If the DNS server you've just added is not reachable, how can you get any particular hostname to resolve locally? 
+
+By updating a local file called `/etc/hosts` and update it with a line like the below:
+```
+192.168.3.131 myserver.domain myserver
+```
+
 * How would you check for SELinux related errors?
 * Write the commands to add 30GB disk space to a logical volume named "docker" that belongs to a logical group named "docker-group".
 * In the root of this repository, create a Bash script called "listit.sh", when executed, this script must do the following (in order):
