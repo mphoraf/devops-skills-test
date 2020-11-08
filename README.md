@@ -14,6 +14,7 @@ ls -lhrS
 ```
 
 * How would you add a DNS server to a network interface in Linux?
+
 * If the DNS server you've just added is not reachable, how can you get any particular hostname to resolve locally? 
 * How would you check for SELinux related errors?
 * Write the commands to add 30GB disk space to a logical volume named "docker" that belongs to a logical group named "docker-group".
