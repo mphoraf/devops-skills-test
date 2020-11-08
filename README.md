@@ -29,6 +29,13 @@ By updating a local file called `/etc/hosts` and update it with a line like the 
 ```
 
 * How would you check for SELinux related errors?
+
+Mostly by check error logs under `/var/log/audit/audit.log`. But most of the time the actuall errors can be found by running:
+```sh
+journalctl -t setroubleshoot
+sealert -l $MESSAGE_NUMBER
+```
+
 * Write the commands to add 30GB disk space to a logical volume named "docker" that belongs to a logical group named "docker-group".
 * In the root of this repository, create a Bash script called "listit.sh", when executed, this script must do the following (in order):
     * Create a file called directories.list that contains the directory names only of the current directory.
