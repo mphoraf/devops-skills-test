@@ -14,23 +14,20 @@ ls -lhrS
 ```
 
 * How would you add a DNS server to a network interface in Linux?
-
-Update file `/etc/resolv.conf` with your DNS ip address.
+    * Update file `/etc/resolv.conf` with your DNS ip address.
 ```
 nameserver 8.8.8.8
 nameserver 1.1.1.1
 ```
 
 * If the DNS server you've just added is not reachable, how can you get any particular hostname to resolve locally? 
-
-By updating a local file called `/etc/hosts` and update it with a line like the below:
+    * By updating a local file called `/etc/hosts` and update it with a line like the below:
 ```
 192.168.3.131 myserver.domain myserver
 ```
 
 * How would you check for SELinux related errors?
-
-Mostly by check error logs under `/var/log/audit/audit.log`. But most of the time the actuall errors can be found by running:
+    * Mostly by check error logs under `/var/log/audit/audit.log`. But most of the time the actuall errors can be found by running:
 ```sh
 journalctl -t setroubleshoot
 sealert -l $MESSAGE_NUMBER
@@ -69,4 +66,10 @@ lvcreate -y -L 30G -n docker-group/docker
 
 # General
 * How would you ensure any change made to this Dockerfile is source controlled, approved, tested and deployed. Explain which tools you will use as if this was going into a production environment.
+    * By utilising CI/CD pipeline tools such as `Drone`, `Jenkins` or `Travis`.
+    * And using git webhooks to auto build and test, perform git push to non master branch and only approve master merges when tests are done and
+	  authorised by some approvers.
+	* A simple pre-production tests can use also docker-compose to test the deployment workflow.
+	* Upon success a configuration management tool like: `Ansible` and `Puppet` can be used to deploy to production and applied to specifi
+	  hosts.
 * Commit and push your changes.
