@@ -37,6 +37,10 @@ sealert -l $MESSAGE_NUMBER
 ```
 
 * Write the commands to add 30GB disk space to a logical volume named "docker" that belongs to a logical group named "docker-group".
+```sh
+lvcreate -y -L 30G -n docker-group/docker 
+```
+
 * In the root of this repository, create a Bash script called "listit.sh", when executed, this script must do the following (in order):
     * Create a file called directories.list that contains the directory names only of the current directory.
     * Add a line at the beginning of the directories.list file that reads "line one's line".
